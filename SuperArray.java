@@ -15,7 +15,7 @@
 * removing an element at specified index
 *
 * ...and now SuperArray complies with the specifications of the
-* ListInt interface. (ListInt.java must be in same dir as this file)
+* List interface. (List.java must be in same dir as this file)
 ***************************/
 
 public class SuperArray implements List
