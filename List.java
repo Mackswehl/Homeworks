@@ -20,11 +20,11 @@ public interface List
   Object get( int index );
 
   // Overwrite the int at index
-  int set( int index, Object x );
+  Object set( int index, Object x );
 
   // Remove the int at index,
   // shifting any elements after it to the left.
   // Return removed value.
-  int remove( int index );
+  Object remove( int index );
 
 }//end interface List

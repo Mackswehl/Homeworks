@@ -21,14 +21,14 @@
 public class SuperArray implements List
 {
 
-    private int[] _data;  //underlying container
+    private Object[] _data;  //underlying container
     private int _size;    //number of elements in this SuperArray
 
 
     //default constructor – initializes 10-item array
     public SuperArray()
     {
-	_data = new int[10];
+	_data = new Object[10];
 	_size = 0;
     }
 
@@ -51,7 +51,7 @@ public class SuperArray implements List
     //double capacity of SuperArray
     private void expand()
     {
-	int[] temp = new int[ _data.length * 2 ];
+	Object[] temp = new Object[ _data.length * 2 ];
 	for( int i = 0; i < _data.length; i++ )
 	    temp[i] = _data[i];
 	_data = temp;
@@ -59,7 +59,7 @@ public class SuperArray implements List
 
 
     //accessor -- return value at specified index
-    public int get( int index )
+    public Object get( int index )
     {
 	return _data[index];
     }
@@ -67,24 +67,24 @@ public class SuperArray implements List
 
     //mutator -- set value at index to newVal,
     //           return old value at index
-    public int set( int index, int newVal )
+    public Object set( int index, Object x )
     {
-	int temp = _data[index];
-	_data[index] = newVal;
+	Object temp = _data[index];
+	_data[index] = x;
 	return temp;
     }
 
 
     //adds an item after the last item
-    public boolean add( int newVal )
+    public boolean add( Object x )
     {
-	add( _size, newVal );
+	add( _size, x );
 	return true;
     }
 
 
     //inserts an item at index
-    public void add( int index, int newVal )
+    public void add( int index, Object x )
     {
 	//first expand if necessary
 	if ( _size >= _data.length )
@@ -92,16 +92,16 @@ public class SuperArray implements List
 	for( int i = _size; i > index; i-- ) {
 	    _data[i] = _data[i-1]; //each slot gets value of left neighbor
 	}
-	_data[index] = newVal;
+	_data[index] = x;
 	_size++;
     }
 
 
     //removes the item at index
     //shifts elements left to fill in newly-empted slot
-    public int remove( int index )
+    public Object remove( int index )
     {
-	int oldVal = _data[index];
+	Object oldVal = _data[index];
 	for( int i = index; i < _size - 1; i++ ) {
 	    _data[i] = _data[i+1];
 	}
@@ -122,7 +122,7 @@ public class SuperArray implements List
     public static void main( String[] args )
     {
 
-	  ListInt mayfield = new SuperArray();
+	  List mayfield = new SuperArray();
 	  System.out.println("\nPrinting empty SuperArray mayfield...");
 	  System.out.println(mayfield);
 
