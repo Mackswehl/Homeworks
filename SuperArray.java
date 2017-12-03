@@ -23,7 +23,7 @@ public class SuperArray implements List
 
   private Object[] _data;  //underlying container
   private int _size;    //number of elements in this SuperArray
-  
+
 
   //default constructor – initializes 10-item array
   public SuperArray()
@@ -61,7 +61,12 @@ public class SuperArray implements List
   //accessor -- return value at specified index
   public Object get( int index )
   {
-    return _data[index];
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException("The input index is not in the range of the array.");
+    }
+    else {
+      return _data[index];
+    }
   }
 
 
@@ -69,9 +74,14 @@ public class SuperArray implements List
   //           return old value at index
   public Object set( int index, Object x )
   {
-    Object temp = _data[index];
-    _data[index] = x;
-    return temp;
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException("The input index is not in the range of the array.");
+    }
+    else {
+      Object temp = _data[index];
+      _data[index] = x;
+      return temp;
+    }
   }
 
 
@@ -87,13 +97,19 @@ public class SuperArray implements List
   public void add( int index, Object x )
   {
     //first expand if necessary
-    if ( _size >= _data.length )
-    expand();
-    for( int i = _size; i > index; i-- ) {
-      _data[i] = _data[i-1]; //each slot gets value of left neighbor
+    if ( _size >= _data.length ) {
+      expand();
     }
-    _data[index] = x;
-    _size++;
+    if (index < 0 || index > size()) {
+      throw new IndexOutOfBoundsException("The input index is out of the range of the array.");
+    }
+    else {
+      for( int i = _size; i > index; i-- ) {
+        _data[i] = _data[i-1]; //each slot gets value of left neighbor
+      }
+      _data[index] = x;
+      _size++;
+    }
   }
 
 
@@ -101,12 +117,17 @@ public class SuperArray implements List
   //shifts elements left to fill in newly-empted slot
   public Object remove( int index )
   {
-    Object oldVal = _data[index];
-    for( int i = index; i < _size - 1; i++ ) {
-      _data[i] = _data[i+1];
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException("The input index is out of range of the array.");
     }
-    _size--;
-    return oldVal;
+    else {
+      Object oldVal = _data[index];
+      for( int i = index; i < _size - 1; i++ ) {
+        _data[i] = _data[i+1];
+      }
+      _size--;
+      return oldVal;
+    }
   }
 
 
