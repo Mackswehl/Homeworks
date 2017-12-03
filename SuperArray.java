@@ -1,7 +1,7 @@
 // Maxwell Vale
 // APCS1 pd2
-// HW43 -- Array of Titanium
-// 2017-11-30r
+// HW45 -- In America, the Driver Sits on the Left
+// 2017-12-4m
 
 /***************************
 * class SuperArray version 3.0
