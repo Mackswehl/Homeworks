@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
 public class ALTester {
-  
+
   public static void populate ( ArrayList<Comparable> list ) {
     for (int i = 0; i < 23; i++) {
       list.add((int)(Math.random() * 100));
     }
   }
+
 
   public static boolean isSorted (ArrayList<Comparable> list) {
     boolean ascending = true;
@@ -14,17 +15,17 @@ public class ALTester {
     for (int i = 0; i < list.size() - 1; i++) {
       if (list.get(i).compareTo(list.get(i+1)) < 0) {
         ascending = false;
-        break;
       }
-    }
-    for  (int i = 0; i < list.size() - 1; i++) {
       if (list.get(i).compareTo(list.get(i+1)) > 0) {
         descending = false;
+      }
+      if (!(ascending || descending)) {
         break;
       }
     }
     return ascending || descending;
   }
+
 
   public static void main (String[] args) {
 
