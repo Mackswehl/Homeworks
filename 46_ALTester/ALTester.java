@@ -1,3 +1,10 @@
+/*
+  * Maxwell Vale
+  * APCS1 pd2
+  * HW46 -- Al<B> Sorted!
+  * 2017-12-4m
+*/
+
 import java.util.ArrayList;
 
 public class ALTester {
