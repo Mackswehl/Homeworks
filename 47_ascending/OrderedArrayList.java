@@ -14,9 +14,9 @@ public class OrderedArrayList {
       temp.add(min);
       list.remove(min);
     }
-    System.out.println(list);
-    list = temp;
-    System.out.println(list);
+    for (int i = 0; i < temp.size(); i++) {
+      list.add(temp.get(i));
+    }
   }
 
   public static void populate ( ArrayList<Comparable> list ) {
@@ -32,6 +32,6 @@ public class OrderedArrayList {
     sort(test);
     System.out.println(test);
 
-  }
+  } // end main method
 
-}
+} // end class OrderedArrayList
