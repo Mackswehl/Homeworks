@@ -7,23 +7,30 @@ import cs1.Keyboard;
 
 public class GuessNumber {
 
-  private int _randNum;
-  private int _numGuess;
-  private int _lower;
-  private int _upper;
-  private int _guess;
+  // instance vars
+  private int _randNum; // stores the number to be guessed
+  private int _numGuess; // number of user's guesses
+  private int _lower; // lower bound of guessing range
+  private int _upper; // upper bound of guessing range
+  private int _guess; // user's guess
 
+  // default constructor
   public GuessNumber() {
-    _randNum = (int)(Math.random() * 100) + 1;
-    _numGuess = 0;
-    _lower = 1;
-    _upper = 100;
+    _randNum = (int)(Math.random() * 100) + 1; // generates random number from 1-100
+    _numGuess = 0; // number of guesses is initially 0
+    _lower = 1; // lower bound starts at 1
+    _upper = 100; // upper bound starts at 100
   }
 
+// checks if the user's guess matches the random number
+// return true if they match, and false if they don't
 public boolean win() {
-  return _guess == _randNum;
+  return _guess == _randNum; //
 }
 
+// takes input from the user
+// check if the guess is between acceptable guessing range
+// if not in correct range, prints message and takes input again
 public void takeInput() {
   _guess = cs1.Keyboard.readInt();
   while (!(_guess >= _lower && _guess <= _upper)) {
@@ -34,6 +41,9 @@ public void takeInput() {
   _numGuess++;
 }
 
+  // runs through the Guessing Game
+  // prints message saying if guess is too high/low and prompts user for new guess
+  // stops once the user guesses correctly -> prints the number of guesses
   public void playGame() {
     System.out.println("\nWelcome to the Number Guessing Game!");
     System.out.print("\nGuess a number from " + _lower + "-" + _upper + ": ");
