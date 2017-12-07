@@ -8,7 +8,7 @@ import cs1.Keyboard;
 public class GuessNumber {
 
   // instance vars
-  private int _randNum; // stores the number to be guessed
+  private int _target; // stores the number to be guessed
   private int _numGuess; // number of user's guesses
   private int _lower; // lower bound of guessing range
   private int _upper; // upper bound of guessing range
@@ -16,7 +16,7 @@ public class GuessNumber {
 
   // default constructor
   public GuessNumber() {
-    _randNum = (int)(Math.random() * 100) + 1; // generates random number from 1-100
+    _target = (int)(Math.random() * 100) + 1; // generates random number from 1-100
     _numGuess = 0; // number of guesses is initially 0
     _lower = 1; // lower bound starts at 1
     _upper = 100; // upper bound starts at 100
@@ -25,7 +25,7 @@ public class GuessNumber {
 // checks if the user's guess matches the random number
 // return true if they match, and false if they don't
 public boolean win() {
-  return _guess == _randNum; //
+  return _guess == _target; //
 }
 
 // takes input from the user
@@ -49,7 +49,7 @@ public void takeInput() {
     System.out.print("\nGuess a number from " + _lower + "-" + _upper + ": ");
     takeInput();
     while (win() == false) {
-      if (_guess < _randNum) {
+      if (_guess < _target) {
         _lower = _guess + 1;
         System.out.println("Too low, try again...");
       }
