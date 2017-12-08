@@ -1,3 +1,8 @@
+// Maxwell Vale
+// APCS1 pd02
+// HW49 - Halving the Halves
+// 2017-12-07
+
 /********************************
 * class OrderedArrayList
 * wrapper class for ArrayList.
