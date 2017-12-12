@@ -1,3 +1,8 @@
+// Maxwell Vale
+// APCS1 pd02
+// HW51 -- Selection
+// 2017-12-11m
+
 /***************************************
 * class SelectionSort -- implements SelectionSort algorithm
 ***************************************/
