@@ -9,21 +9,24 @@
 
 import java.util.ArrayList;
 
-public class BubbleSort {
+// VOID version of bubbleSort
+// Rearranges elements of input ArrayList
+// postcondition: data's elements sorted in ascending order
+public static void bubbleSortV( ArrayList<Comparable> data )
+{
+  //make n-1 passes across collection
+  for( int passCtr = 1; passCtr < data.size(); passCtr++ ) {
+    System.out.println( "commencing pass #" + passCtr + "..." );
 
-  //~~~~~~~~~~~~~~~~~~~ HELPER METHODS ~~~~~~~~~~~~~~~~~~~
-  //precond: lo < hi && size > 0
-  //postcond: returns an ArrayList of random integers
-  //          from lo to hi, inclusive
-  public static ArrayList populate( int size, int lo, int hi ) {
-    ArrayList<Integer> retAL = new ArrayList<Integer>();
-    while( size > 0 ) {
-      //     offset + rand int on interval [lo,hi]
-      retAL.add( lo + (int)( (hi-lo+1) * Math.random() ) );
-      size--;
+    //iterate from first to next-to-last element
+    for( int i = 0; i < data.size()-1; i++ ) {
+      //if element at i > element at i+1, swap
+      if ( data.get(i).compareTo(data.get(i+1) ) > 0 )
+        data.set( i, data.set(i+1,data.get(i)) );
+      //System.out.println(data); //diag: show current state of list
     }
-    return retAL;
   }
+}
 
   //randomly rearrange elements of an ArrayList
   public static void shuffle( ArrayList al ) {
