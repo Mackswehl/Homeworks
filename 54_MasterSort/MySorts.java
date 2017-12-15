@@ -1,91 +1,95 @@
-// Maxwell Vale
-// APCS1 pd02
-// HW54 - One file to bring them all...
-// 2017-12-13w
+//Alan Wang and Maxwell Vale (Team Wale)
+//APCS1 pd02
+//HW54 -- One File to Bring Them All….
+//2017-12-14 
 
 import java.util.ArrayList;
 
-public class MySorts {
+public class MySorts
+{
+    //~~~~~~~~~~~~~~~~~~~ HELPER METHODS ~~~~~~~~~~~~~~~~~~~
+    //precond: lo < hi && size > 0
+    //postcond: returns an ArrayList of random integers
+    //          from lo to hi, inclusive
+    public static ArrayList populate( int size, int lo, int hi ) {
+	ArrayList<Integer> retAL = new ArrayList<Integer>();
+	while( size > 0 ) {
+	    //     offset + rand int on interval [lo,hi]
+	    retAL.add( lo + (int)( (hi-lo+1) * Math.random() ) );
+	    size--;
+	}
+	return retAL;
+    }
 
+    //randomly rearrange elements of an ArrayList
+    public static void shuffle( ArrayList al ) {
+	int randomIndex;
+	//setup for traversal fr right to left
+	for( int i = al.size()-1; i > 0; i-- ) {
+	    //pick an index at random
+	    randomIndex = (int)( (i+1) * Math.random() );
+	    //swap the values at position i and randomIndex
+	    al.set( i, al.set( randomIndex, al.get(i) ) );
+	}
+    }
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  /**************BubbleSort**************/
-
-
-  // VOID version of bubbleSort
-  // Rearranges elements of input ArrayList
-  // postcondition: data's elements sorted in ascending order
-  public static void bubbleSort( ArrayList<Comparable> data )
-  {
-    //make n-1 passes across collection
-    for( int passCtr = 1; passCtr < data.size(); passCtr++ ) {
-	    System.out.println( "commencing pass #" + passCtr + "..." );
-
-	    //iterate from first to next-to-last element
-	    for( int i = 0; i < data.size()-1; i++ ) {
-        //if element at i > element at i+1, swap
-        if ( data.get(i).compareTo(data.get(i+1) ) > 0 )
-          data.set( i, data.set(i+1,data.get(i)) );
-        //System.out.println(data); //diag: show current state of list
+    // VOID version of bubbleSort
+    // Rearranges elements of input ArrayList
+    // postcondition: data's elements sorted in ascending order
+    public static void bubbleSort( ArrayList<Comparable> data )
+    {
+	int temp = 0; //sets temp equal to 0
+	int x = 0; //sets x equal to 0 
+	while (data.size() - 1 != x) { //does the amount of passes necessary
+	    for (int n = 0; data.size() - 1  > n; n++) { //switches the first & second element starting from the beginning if necessary
+		if ((data.get(n).compareTo(data.get(n+1))) > 0) { //compares first & second element if first bigger than second than switch 
+		    temp = (int) data.get(n); //sets temp equal to first element
+		    data.set(n, data.get(n+1)); //sets first element equal to second element
+		    data.set(n+1, temp); //sets second element equal to first element
+		}
 	    }
+	    x += 1; //adds 1 for each pass until the while loop is satisfied 
+	}
     }
-  }
+    
+    // VOID version of SelectionSort
+    // Rearranges elements of input ArrayList
+    // postcondition: data's elements sorted in ascending order
+    public static void selectionSort( ArrayList<Comparable> data ) 
+    {
+	int min; // declares min 
+	for (int i = 0; i < data.size() - 1; i ++){
+	    min = i; // initiates with the first unsorted element
+	    for (int j = i; j < data.size(); j ++){
+		if (data.get(j).compareTo(data.get(min)) < 0){
+		    // set smallest to j if j is smaller
+		    min = j;
+		}
+	    }
+	    data.set(i, data.set(min, data.get(i))); // swaps i and smallest
+	}
+    }//end selectionSortV    
 
-
-  /**************SelectionSort**************/
-
-
-  // VOID version of SelectionSort
-  // Rearranges elements of input ArrayList
-  // postcondition: data's elements sorted in ascending order
-  public static void selectionSort( ArrayList<Comparable> data )
-  {
-    // for loop to iterate through data, changing the element at index to the smallest element in data
-    for (int index = 0; index < data.size(); index++) {
-      // var holding the smallest value of data; initialized as element at index
-      Comparable min = data.get(index);
-      //for loop used to iterate through data to find the smallest element and set min equal to it
-      for (int i = index + 1; i < data.size(); i++) {
-        if (data.get(i).compareTo(min) < 0) {
-          min = data.get(i);
-        }
-      }
-      //Swapping the next beginning index of data to the smallest element of the remaining part of data
-      Comparable first = data.get(index); // next first element of data
-      int minIndex = data.indexOf(min); // the index of min
-      data.set(index, min); // swap min with the element at the next first index
-      data.set(minIndex, first);
-    }
-  }//end selectionSortV
-
-
-  /**************BubbleSort**************/
-
-
-  // VOID version of InsertionSort
-  // Rearranges elements of input ArrayList
-  // postcondition: data's elements sorted in ascending order
-  public static void insertionSort( ArrayList<Comparable> data )
-  {
-    // start incrementing from index 1 since the first element is technically already sorted
-    for (int pass = 1; pass < data.size(); pass++) {
-      int index = pass; // instance var to hold pass, tracks the index of the element at index pass
-      System.out.println("\nPass " + pass);
-      System.out.println("Element being moved: " + data.get(pass));
-      System.out.println(data); // initial state of data at beginning of pass
-
-      while (index > 0 && data.get(index).compareTo(data.get(index - 1)) < 0) {
-        Comparable small = data.get(index); // swapping the tracked element and the one before if necessary
-        Comparable big = data.get(index - 1);
-        data.set(index - 1, small);
-        data.set(index, big);
-        System.out.println(data); // print the new data with the element moved down a place
-        index--; // increment index down
-      }
-    }
-  }//end insertionSortV
-
-  public static void main (String[] args) {
-
-  } // end main method
-
-} // end class MySorts
+    // VOID version of InsertionSort
+    // Rearranges elements of input ArrayList
+    // postcondition: data's elements sorted in ascending order
+    public static void insertionSort( ArrayList<Comparable> data )
+    {
+	int max; //initializes max 
+	int x; //initializes x
+	for(int index = 1; index < data.size() ; index++) { //first loop (changes marker)
+	    x = index;
+	    while (x >= 0) { //Second loop (checks if max in every index)
+		max = x;
+		for(int ctr = x; ctr >= 0 ;ctr--) { //Third loop (finds max) 
+		    if (data.get(ctr).compareTo(data.get(max)) > 0) { 
+			max = ctr;
+		    }
+		}
+		data.set( max , data.set(x , data.get(max))); //swamps the values for the max and index 
+		x--;
+	    }
+	}
+    }//end insertionSortV
+}
