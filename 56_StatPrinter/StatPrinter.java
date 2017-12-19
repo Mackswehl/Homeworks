@@ -44,8 +44,12 @@ import java.util.ArrayList;
 public class StatPrinter {
 
   // instance variable for frequencies of each integer in input ArrayList
-  private ArrayList <Integer> _frequency;
+  private ArrayList <Integer> _frequency = new ArrayList <Integer>();
 
+  // O(1) time
+  public ArrayList <Integer> getFreq () {
+    return _frequency;
+  }
 
   //*************** QUESTION 02 **************************
   //precond:  data.size() > 0, each entry b/t 0,100 inclusive
@@ -53,11 +57,13 @@ public class StatPrinter {
   //          _frequency.get(i) returns frequency of i in data
   //eg, for data [2,3,2,5,2,3]
   //  _frequency would be [0,0,3,2,0,1]
+
+  // O(n^2) time
   public StatPrinter( ArrayList <Integer> data )
   {
     for (int i = 0; i < max(data) + 1; i++) {
       int counter = 0;
-      for (int index = 0; index < data.size() - 1; index ++) {
+      for (int index = 0; index < data.size(); index ++) {
         if (data.get(index) == i) {
           counter++;
         }
@@ -70,6 +76,8 @@ public class StatPrinter {
   //*************** QUESTION 01 **************************
   //precond:  data.size() > 0
   //postcond: returns largest integer in data
+
+  // O(n) time
   public Integer max( ArrayList <Integer> data )
   {
     int max = 0;
@@ -92,10 +100,12 @@ public class StatPrinter {
   //    isLocalMode(0) -> false
   //    isLocalMode(1) -> true
   //    isLocalMode(5) -> true
+
+  // O(1) time
   public boolean isLocalMode( int i )
   {
     if (i > 0 && i < _frequency.size() - 1) {
-      return (_frequency.get(i-1) < _frequency.get(i) && _frequency.get(i) < _frequency.get(i+1));
+      return (_frequency.get(i-1) < _frequency.get(i) && _frequency.get(i) > _frequency.get(i+1));
     }
     else {
       return false;
@@ -105,6 +115,8 @@ public class StatPrinter {
 
   //*************** QUESTION 04 **************************
   //postcond: returns list of modes in _frequency
+
+  // O(n) time
   public ArrayList<Integer> getLocalModes()
   {
     ArrayList<Integer> localModes = new ArrayList<Integer>();
@@ -119,17 +131,18 @@ public class StatPrinter {
 
   //*************** QUESTION 05 **************************
   //precond:  longestBar > 0
+
+  // O(n^2) time
   public void printHistogram( int longestBar )
   {
     int ratio = longestBar / max(_frequency);
-    String retStr = "";
-    for (int i = 0; i < _frequency.size() - 1; i++) {
-      retStr += i + " : ";
-      for (int n = 1; i < _frequency.get(n) * ratio; n++) {
+    for (int i = 0; i < _frequency.size(); i++) {
+      String retStr = i + " : ";
+      for (int n = 1; n < _frequency.get(i) * ratio; n++) {
         retStr += "*";
       }
+      System.out.println(retStr);
     }
-    System.out.println(retStr);
   }
 
 }//end class StatPrinter
