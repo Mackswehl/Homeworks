@@ -157,14 +157,16 @@ public class Matrix
     //returns copy of row r
     public Object[] getRow( int r )
     {
-      return _matrix[0];
+      return _matrix[r-1];
     }//O(?)
 
     //replaces row r with 1D array newRow
     //returns old row
     public Object [] setRow( int r, Object[] newRow )
     {
-      return _matrix[0];
+      Object[] oldRow = _matrix[r-1];
+      _matrix[r-1] = newRow;
+      return oldRow;
     }//O(?)
 
     public Object [] setCol( int c, Object[] newCol )
@@ -199,7 +201,21 @@ public class Matrix
 	System.out.println(x);
 
 	Matrix m3 = new Matrix(3); //3x3
-	System.out.println(m1);
+  System.out.println(m3);
+  m3.set(1,1,"cat");
+  m3.set(1,2,"hat");
+  m3.set(1,3,"sat");
+  m3.set(2,1,"bat");
+  m3.set(2,2,"fat");
+  m3.set(2,3,"rat");
+  m3.set(3,1,"tat");
+  m3.set(3,2,"dat");
+  m3.set(3,3,"mat");
+  System.out.println(m3);
+  System.out.println("Row 1 of m3: " + m3.getRow(1));
+  System.out.println("Row 2 of m3: " + m3.getRow(2));
+  System.out.println("Row 3 of m3: " + m3.getRow(3));
+
     }//end main()
 
 }//end class Matrix
