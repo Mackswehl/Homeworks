@@ -1,3 +1,8 @@
+// Maxwell Vale
+// APCS1 pd02
+// HW59 - Make the Matrix Work for You
+// 2017-12-20w
+
 /***
 * class Matrix -- models a square matrix
 *
