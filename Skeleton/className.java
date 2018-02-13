@@ -1,5 +1,5 @@
 // Maxwell Vale
-// APCS1 pd02
+// APCS2 pd02
 // HW<hw number> - <HW NAME>
 // <yyyy-mm-dd>
 
