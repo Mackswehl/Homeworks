@@ -9,14 +9,7 @@ public class className {
 
   public static void main (String[] args) {
 
-    ArrayList<Integer> vale = new ArrayList<Integer>();
-    for(int i = 0; i < 10; i++) {
-      vale.add(i);
-    }
 
-    for (int i : vale) {
-      System.out.println(i);
-    }
 
   } // end main method
 
