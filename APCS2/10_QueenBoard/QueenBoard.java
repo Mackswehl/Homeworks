@@ -43,6 +43,16 @@ public class QueenBoard
         addQueen(r,col);
         break;
       }
+      else if (r == _board.length - 1 && _board[r][col] != 0) {
+        for (int ro = 0; ro < _board.length; ro++) {
+          if (_board[ro][col - 1] == 1) {
+            removeQueen(ro,col);
+            _board[ro][col - 1] = -1;
+            break;
+          }
+        }
+        return solveH(col - 1);
+      }
     }
     if (col == _board.length - 1) {
       printSolution();
