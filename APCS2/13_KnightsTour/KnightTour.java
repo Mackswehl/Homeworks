@@ -8,7 +8,7 @@ class KnightTour
 Animates a Knight's Tour of a square chess board.
 
 Mean execution times for boards of size n*n:
-n=5   .208s    over 10 executions
+n=5   .235s    over 10 executions
 n=6   1.755s    over 10 executions
 n=7   __s    over 10 executions
 n=8   __s    over 10 executions
@@ -107,6 +107,7 @@ class TourFinder
     //primary base case: tour completed
     if ( moves > sideLength * sideLength) {
       solved = true;
+      System.out.println(this);
       return;
     }
     //other base case: stepped off board or onto visited cell
@@ -131,21 +132,21 @@ class TourFinder
       . h . a .
       ======================================*/
 
-      findTour(x+1,y-2,moves+1);
-      findTour(x+2,y-1,moves+1);
-      findTour(x+2,y+1,moves+1);
       findTour(x+1,y+2,moves+1);
-      findTour(x-1,y+2,moves+1);
-      findTour(x-2,y+1,moves+1);
-      findTour(x-2,y-1,moves+1);
+      findTour(x+2,y+1,moves+1);
+      findTour(x+2,y-1,moves+1);
+      findTour(x+1,y-2,moves+1);
       findTour(x-1,y-2,moves+1);
+      findTour(x-2,y-1,moves+1);
+      findTour(x-2,y+1,moves+1);
+      findTour(x-1,y+2,moves+1);
 
       //If made it this far, path did not lead to tour, so back up.
 
       board[x][y] = 0;
       moves--;
 
-      System.out.println( this ); //refresh screen
+      //System.out.println( this ); //refresh screen
     }
   }//end findTour()
 
@@ -174,12 +175,12 @@ public class KnightTour
     System.out.println( tf );
 
     //for random starting location, use lines below:
-    //int startX = 2 + (int)( n * Math.random() );
-    //int startY = 2 + (int)( n * Math.random() );
-    //tf.findTour( startX, startY, 1 );   // 1 or 0 ?
+    int startX = 2 + (int)( n * Math.random() );
+    int startY = 2 + (int)( n * Math.random() );
+    tf.findTour( startX, startY, 1 );   // 1 or 0 ?
 
     //for fixed starting location, use line below:
-    tf.findTour( 2, 2, 1 );
+    //tf.findTour( 2, 2, 1 );
 
   }//end main()
 
