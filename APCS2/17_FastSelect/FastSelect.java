@@ -46,7 +46,7 @@ public class FastSelect {
   * c -> middle index (?), arr.length / 2
   */
 
-  public static int splitSort(int[] arr, int a, int b, int c){
+  public static int partition(int[] arr, int a, int b, int c){
     int v = arr[c];
     swap(arr, c, b);
     //System.out.println("Inital Swap: " + stringify(arr));
@@ -88,10 +88,10 @@ public class FastSelect {
    * Repeat until you end on the answer.
    */
 
-  public static int ySmall (int[] arr, int y) {
+  public static int fastSelect (int[] arr, int y) {
     int lower = 0;
     int higher = arr.length - 1;
-    int n = splitSort(arr,0,arr.length - 1, arr.length / 2);
+    int n = partition(arr,0,arr.length - 1, arr.length / 2);
 
     while (n != y - 1) {
       if (n > y - 1) {
@@ -113,7 +113,7 @@ public class FastSelect {
         break;
       }
       else {
-        n = splitSort(arr,lower,higher,(higher - lower + 1) / 2);
+        n = partition(arr,lower,higher,(higher - lower + 1) / 2);
       }
     }
     return arr[n];
@@ -129,7 +129,7 @@ public class FastSelect {
       int[] random = new int[(int)(Math.random() * 10)+1];
       populate(random);
       System.out.println("\nRandom Test#" + i + ": " +  stringify(random));
-      System.out.println(ySmall(random,3));
+      System.out.println(fastSelect(random,3));
       //System.out.println(splitSort(random, 0, 1, 1));
     }
 
