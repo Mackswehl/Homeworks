@@ -122,8 +122,6 @@ public class FastSelect {
 
   public static void main(String[] args){
 
-
-
     //testing with random sized arrays
     for (int i = 0; i < 1; i ++){
       int[] random = new int[(int)(Math.random() * 10)+1];
