@@ -103,6 +103,8 @@ public class QuickSort
   //main method for testing
   public static void main( String[] args )
   {
+
+    /*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y)
     //get-it-up-and-running, static test case:
     int [] arr1 = {7,1,5,12,3};
     System.out.println("\narr1 init'd to: " );
@@ -128,35 +130,50 @@ public class QuickSort
     qsort( arrN );
     System.out.println("arrN after sort: " );
     printArr(arrN);
-    /*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
     //get-it-up-and-running, static test case w/ dupes:
-    int [] arr2 = {7,1,5,12,3,7};
-    System.out.println("\narr2 init'd to: " );
-    printArr(arr2);
+    //int [] arr2 = {7,1,5,12,3,7};
+    //System.out.println("\narr2 init'd to: " );
+    //printArr(arr2);
 
-    qsort( arr2 );
-    System.out.println("arr2 after qsort: " );
-    printArr(arr2);
+    //qsort( arr2 );
+    //System.out.println("arr2 after qsort: " );
+    //printArr(arr2);
 
 
     // arrays of randomly generated ints
-    int[] arrMatey = new int[20];
-    for( int i = 0; i < arrMatey.length; i++ )
-    arrMatey[i] = (int)( 48 * Math.random() );
+    for (int size = 100000; size <= 10000000; size += 100000) {
 
-    System.out.println("\narrMatey init'd to: " );
-    printArr(arrMatey);
+      long totalTime = 0;
+      int numTrials = 5;
 
-    shuffle(arrMatey);
-    System.out.println("arrMatey post-shuffle: " );
-    printArr(arrMatey);
+      for (int trial = 1; trial <= numTrials; trial++) {
 
-    qsort( arrMatey );
-    System.out.println("arrMatey after sort: " );
-    printArr(arrMatey);
+        int[] arrMatey = new int[size];
+        for( int i = 0; i < arrMatey.length; i++ ) {
+          arrMatey[i] = (int)( 100000 * Math.random() );
+        }
+
+        //System.out.println("\narrMatey init'd to: " );
+        //printArr(arrMatey);
+
+        shuffle(arrMatey);
+        //System.out.println("arrMatey post-shuffle: " );
+        //printArr(arrMatey);
+
+        long startTime = System.currentTimeMillis();
+        qsort( arrMatey );
+        long endTime = System.currentTimeMillis();
+        totalTime += (endTime - startTime);
+        //System.out.println("arrMatey after sort: " );
+        //printArr(arrMatey);
+
+      }
+
+      System.out.println(size + "," + totalTime/numTrials);
+    }
     /*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
