@@ -78,10 +78,10 @@ public class QuickSort
   public static void qsortH (int[] d, int left, int right) {
 
     if (left == right || right < left) {
-
+      return;
     }
     else {
-      int pvt = (left + right) / 2; // placing the pivot point at the center index value
+      int pvt = left + 1; // placing the pivot point at the center index value
       int pvtVal = d[pvt]; // value initially at the pivot point
       int wall = left; // division between the numbers less than and greater than pvtVal
       swap(pvt,right,d);
@@ -144,12 +144,12 @@ public class QuickSort
 
 
     // arrays of randomly generated ints
-    for (int size = 100000; size <= 10000000; size += 100000) {
+    for (int size = 100000; size <= 20000000; size += 100000) {
 
       long totalTime = 0;
-      int numTrials = 5;
+      int numTrials = 1;
 
-      for (int trial = 1; trial <= numTrials; trial++) {
+      /*for (int trial = 1; trial <= numTrials; trial++) {
 
         int[] arrMatey = new int[size];
         for( int i = 0; i < arrMatey.length; i++ ) {
@@ -170,10 +170,21 @@ public class QuickSort
         //System.out.println("arrMatey after sort: " );
         //printArr(arrMatey);
 
+      }*/
+
+      int[] arrMatey2 = new int[size];
+      for (int i = 0; i < arrMatey2.length; i++) {
+        arrMatey2[i] = arrMatey2.length - i;
       }
+      long start = System.currentTimeMillis();
+      QuickSort.qsort(arrMatey2);
+      long end = System.currentTimeMillis();
+      System.out.println(size + ", " + (end-start));
 
       System.out.println(size + "," + totalTime/numTrials);
     }
+
+
     /*~~~~s~l~i~d~e~~~m~e~~~d~o~w~n~~~~~~~~~~~~~~~~~~~~ (C-k, C-k, C-y)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
