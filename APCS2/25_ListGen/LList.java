@@ -4,7 +4,7 @@
 //2018-03-26
 /*****************************************************
 * class LList
-* Implements a linked list of DLLNodes, each containing String data
+* Implements a linked list of DLLNodes, each containing T data
 *****************************************************/
 
 public class LList implements List //your List interface must be in same dir
@@ -26,7 +26,7 @@ public class LList implements List //your List interface must be in same dir
 
   //--------------v  List interface methods  v--------------
 
-  public boolean add( String newVal )
+  public boolean add( T newVal )
   {
     DLLNode tmp = new DLLNode( null, newVal, _head );
     _head = tmp;
@@ -35,7 +35,7 @@ public class LList implements List //your List interface must be in same dir
     return true;
   }
 
-  public void add(int i, String s){
+  public void add(int i, T s){
 
     if ( i < 0 || i >= size() )
     throw new IndexOutOfBoundsException();
@@ -59,7 +59,7 @@ public class LList implements List //your List interface must be in same dir
     _size++;
   }
 
-  public String remove(int i){
+  public T remove(int i){
 
     if ( i < 0 || i >= size() )
     throw new IndexOutOfBoundsException();
@@ -82,7 +82,7 @@ public class LList implements List //your List interface must be in same dir
     for(int j = 0; j < i - 1; j++){
       temp = temp.getNext();
     }
-    String retVal = temp.getNext().getCargo();
+    T retVal = temp.getNext().getCargo();
     //Jump past node to be removed and set to pointer to the next node
     DLLNode next = temp.getNext().getNext();
     temp.setNext(next);
@@ -90,12 +90,12 @@ public class LList implements List //your List interface must be in same dir
     return retVal;
   }
 
-  public String get( int index )
+  public T get( int index )
   {
     if ( index < 0 || index >= size() )
     throw new IndexOutOfBoundsException();
 
-    String retVal;
+    T retVal;
     DLLNode tmp = _head; //create alias to head
 
     //walk to desired node
@@ -108,7 +108,7 @@ public class LList implements List //your List interface must be in same dir
   }
 
 
-  public String set( int index, String newVal )
+  public T set( int index, T newVal )
   {
 
     if ( index < 0 || index >= size() )
@@ -121,7 +121,7 @@ public class LList implements List //your List interface must be in same dir
     tmp = tmp.getNext();
 
     //store target node's cargo
-    String oldVal = tmp.getCargo();
+    T oldVal = tmp.getCargo();
 
     //modify target node's cargo
     tmp.setCargo( newVal );
@@ -136,10 +136,10 @@ public class LList implements List //your List interface must be in same dir
   //--------------^  List interface methods  ^--------------
 
 
-  // override inherited toString
-  public String toString()
+  // override inherited toT
+  public T toT()
   {
-    String retStr = "HEAD->";
+    T retStr = "HEAD->";
     DLLNode tmp = _head; //init tr
     while( tmp != null ) {
       retStr += tmp.getCargo() + "->";
@@ -151,7 +151,7 @@ public class LList implements List //your List interface must be in same dir
 
 
   //main method for testing
-  public static void main( String[] args )
+  public static void main( T[] args )
   {
     LList james = new LList();
 

@@ -1,3 +1,8 @@
+//Maxwell Vale
+//APCS2 pd2
+//HW26 -- DeIteratour
+//2018-03-27
+
 /*****************************************************
  * class ItrWork -- skeleton
  * Allows for familiarization with iterators
@@ -14,7 +19,7 @@ public class ItrWorkAL
     public static boolean foundA( Integer key, List<Integer> L )
     {
       for(Integer i:L) {
-        if (i == key) {
+        if (i.equals(key)) {
           return true;
         }
       }
@@ -27,7 +32,7 @@ public class ItrWorkAL
     {
       Iterator bob = L.iterator();
       while(bob.hasNext()) {
-        if (key == bob.next()) {
+        if (key.equla(bob.next())) {
           return true;
         }
       }
