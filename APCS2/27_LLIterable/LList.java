@@ -1,16 +1,21 @@
+//Maxwell Vale
+//APCS2 pd2
+//HW27 -- Make Itr Work
+//2018-03-28W
+
 /*****************************************************
- * class LList v6
- * Implements a linked list of DLLNodes.
- * Version 06 is iterable via FOREACH loop
- * (...because modifications were made to local List interface.)
- *****************************************************/
+* class LList v6
+* Implements a linked list of DLLNodes.
+* Version 06 is iterable via FOREACH loop
+* (...because modifications were made to local List interface.)
+*****************************************************/
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class LList<T> implements List<T> 
-{ 
+public class LList<T> implements List<T>
+{
   // Your List.java must be in same dir to supersede
   // built-in Java List interface
 
@@ -32,44 +37,44 @@ public class LList<T> implements List<T>
 
   //append a new node to end of list
   public boolean add( T newVal )
-  { 
+  {
     addLast( newVal );
     return true; //per Java API spec
-  } 
+  }
 
 
   //insert a node containing newVal at position index
   public void add( int index, T newVal )
   {
     if ( index < 0 || index > size() )
-	    throw new IndexOutOfBoundsException();
+    throw new IndexOutOfBoundsException();
 
-    else if ( index == size() ) 
-	    addLast( newVal );
+    else if ( index == size() )
+    addLast( newVal );
 
     DLLNode<T> newNode = new DLLNode<T>( newVal, null, null );
 
     //if index==0, insert node before head node
-    if ( index == 0 ) 
-	    addFirst( newVal );
+    if ( index == 0 )
+    addFirst( newVal );
     else {
-	    DLLNode<T> tmp1 = _head; //create alias to head
+      DLLNode<T> tmp1 = _head; //create alias to head
 
-	    //walk tmp1 to node before desired node
-	    for( int i=0; i < index-1; i++ )
-        tmp1 = tmp1.getNext();
+      //walk tmp1 to node before desired node
+      for( int i=0; i < index-1; i++ )
+      tmp1 = tmp1.getNext();
 
-	    //init a pointer to node at insertion index
-	    DLLNode<T> tmp2 = tmp1.getNext(); 
+      //init a pointer to node at insertion index
+      DLLNode<T> tmp2 = tmp1.getNext();
 
-	    //insert new node
-	    newNode.setNext( tmp2 );
-	    newNode.setPrev( tmp1 );
-	    tmp1.setNext( newNode );
-	    tmp2.setPrev( newNode );
+      //insert new node
+      newNode.setNext( tmp2 );
+      newNode.setPrev( tmp1 );
+      tmp1.setNext( newNode );
+      tmp2.setPrev( newNode );
 
-	    //increment size attribute
-	    _size++;
+      //increment size attribute
+      _size++;
 
     }
   }//end add-at-index
@@ -79,76 +84,76 @@ public class LList<T> implements List<T>
   public T remove( int index )
   {
     if ( index < 0 || index >= size() )
-	    throw new IndexOutOfBoundsException();
+    throw new IndexOutOfBoundsException();
 
     if ( index == 0 )
-	    return removeFirst();
+    return removeFirst();
     else if ( index == size()-1 )
-	    return removeLast();
+    return removeLast();
     else {
-	    DLLNode<T> tmp1 = _head; //create alias to head
+      DLLNode<T> tmp1 = _head; //create alias to head
 
-	    //walk to node before desired node
-	    for( int i=0; i < index-1; i++ ) {
+      //walk to node before desired node
+      for( int i=0; i < index-1; i++ ) {
         tmp1 = tmp1.getNext();
         System.out.println( "tmp1: " + tmp1.getCargo() );
-	    }
-	    //check target node's cargo hold
-	    T retVal = tmp1.getNext().getCargo();
+      }
+      //check target node's cargo hold
+      T retVal = tmp1.getNext().getCargo();
 
-	    //remove target node
-	    tmp1.setNext( tmp1.getNext().getNext() );
-	    System.out.println( "tmp1.getNext: " + tmp1.getNext().getCargo() );
-	    tmp1.getNext().setPrev( tmp1 );
+      //remove target node
+      tmp1.setNext( tmp1.getNext().getNext() );
+      System.out.println( "tmp1.getNext: " + tmp1.getNext().getCargo() );
+      tmp1.getNext().setPrev( tmp1 );
 
-	    _size--;
+      _size--;
 
-	    return retVal;
+      return retVal;
     }
   }
 
 
   public T get( int index )
-  { 
+  {
     if ( index < 0 || index >= size() )
-	    throw new IndexOutOfBoundsException();
+    throw new IndexOutOfBoundsException();
 
     T retVal;
     DLLNode<T> tmp = _head; //create alias to head
 
     //walk to desired node
     for( int i=0; i < index; i++ )
-	    tmp = tmp.getNext();
+    tmp = tmp.getNext();
 
     //check target node's cargo hold
     retVal = tmp.getCargo();
     return retVal;
-  } 
+  }
 
 
   public T set( int index, T newVal )
-  { 
+  {
     if ( index < 0 || index >= size() )
-	    throw new IndexOutOfBoundsException();
+    throw new IndexOutOfBoundsException();
 
     DLLNode<T> tmp = _head; //create alias to head
 
     //walk to desired node
     for( int i=0; i < index; i++ )
-	    tmp = tmp.getNext();
+    tmp = tmp.getNext();
 
     //store target node's cargo
     T oldVal = tmp.getCargo();
-	
+
     //modify target node's cargo
     tmp.setCargo( newVal );
-	
+
     return oldVal;
-  } 
+  }
 
 
   //return number of nodes in list
-  public int size() { return _size; } 
+  public int size() { return _size; }
 
   //--------------------------------------------------------
   //--------------^  List interface methods  ^--------------
@@ -156,62 +161,62 @@ public class LList<T> implements List<T>
 
 
   //--------------v  Helper methods  v--------------
-  
+
   public void addFirst( T newFirstVal )
-  { 
+  {
     //insert new node before first node (prev=null, next=_head)
     _head = new DLLNode<T>( newFirstVal, null, _head );
 
-    if ( _size == 0 ) 
-	    _tail = _head;
-    else 
-	    _head.getNext().setPrev( _head );
+    if ( _size == 0 )
+    _tail = _head;
+    else
+    _head.getNext().setPrev( _head );
     _size++;
   }
 
-  
+
   public void addLast( T newLastVal )
-  { 
+  {
     //insert new node before first node (prev=_last, next=null)
     _tail = new DLLNode<T>( newLastVal, _tail, null );
 
-    if ( _size == 0 ) 
-	    _head = _tail;
-    else 
-	    _tail.getPrev().setNext( _tail );
+    if ( _size == 0 )
+    _head = _tail;
+    else
+    _tail.getPrev().setNext( _tail );
     _size++;
   }
 
-  
+
   public T getFirst() { return _head.getCargo(); }
 
   public T getLast() { return _tail.getCargo(); }
 
-  
+
   public T removeFirst()
-  { 
+  {
     T retVal = getFirst();
     if ( size() == 1 ) {
-	    _head = _tail = null;
+      _head = _tail = null;
     }
     else {
-	    _head = _head.getNext();
-	    _head.setPrev( null );
+      _head = _head.getNext();
+      _head.setPrev( null );
     }
     _size--;
     return retVal;
   }
 
-  
+
   public T removeLast()
-  { 
+  {
     T retVal = getLast();
     if ( size() == 1 ) {
-	    _head = _tail = null;
+      _head = _tail = null;
     }
     else {
-	    _tail = _tail.getPrev();
-	    _tail.setNext( null );
+      _tail = _tail.getPrev();
+      _tail.setNext( null );
     }
     _size--;
     return retVal;
@@ -221,12 +226,12 @@ public class LList<T> implements List<T>
 
   // override inherited toString
   public String toString()
-  { 
+  {
     String retStr = "HEAD->";
     DLLNode<T> tmp = _head; //init tr
     while( tmp != null ) {
-	    retStr += tmp.getCargo() + "->";
-	    tmp = tmp.getNext();
+      retStr += tmp.getCargo() + "->";
+      tmp = tmp.getNext();
     }
     retStr += "NULL";
     return retStr;
@@ -235,81 +240,78 @@ public class LList<T> implements List<T>
 
 
   /*****************************************************
-   * inner class MyIterator
-   * Adheres to specifications given by Iterator interface.
-   * Uses dummy node to facilitate iterability over LList.
-   *****************************************************/
-  /* YOUR MODIFIERS HERE */ class MyIterator implements Iterator<T> 
+  * inner class MyIterator
+  * Adheres to specifications given by Iterator interface.
+  * Uses dummy node to facilitate iterability over LList.
+  *****************************************************/
+  private class MyIterator implements Iterator<T>
   {
     private DLLNode<T> _dummy;   // dummy node to tracking pos
     private boolean _okToRemove; // flag indicates next() was called
-    
-    //constructor 
-    public MyIterator() 
+
+    //constructor
+    public MyIterator()
     {
-      /* "Follow your inner moonlight; don't hide the madness."
-         -Allen Ginsberg */
+      _dummy = _head;
+      _okToRemove = false;
     }
 
     //-----------------------------------------------------------
     //--------------v  Iterator interface methods  v-------------
     //return true if iteration has more elements.
-    public boolean hasNext() 
+    public boolean hasNext()
     {
-      /* "Follow your inner moonlight; don't hide the madness."
-         -Allen Ginsberg */
+      return (_dummy.getNext() != null);
     }
 
 
     //return next element in this iteration
-    public T next() 
+    public T next()
     {
-      /* "Follow your inner moonlight; don't hide the madness."
-         -Allen Ginsberg */
+      if (hasNext()) {
+        _okToRemove = true;
+        _dummy = _dummy.getNext();
+        return _dummy.getCargo();
+      }
+      else {
+        return _dummy.getNext();
+      }
     }
 
 
     //return last element returned by this iterator (from last next() call)
     //postcondition: maintains invariant that _dummy always points to a node
     //               (...so that hasNext() will not crash)
-    public void remove() 
+    public void remove()
     {
-      //Q: What is significance/purpose of these lines? 
+      //Q: What is significance/purpose of these lines?
       if ( ! _okToRemove )
-        throw new IllegalStateException("must call next() beforehand");
-	    _okToRemove = false;
+      throw new IllegalStateException("must call next() beforehand");
+      _okToRemove = false;
 
-	    //if ________...
-	    if (  ) {
-      /* "Follow your inner moonlight; don't hide the madness."
-         -Allen Ginsberg */
-	    }
-	    //if ________...
-	    else if (  ) {
-      /* "Follow your inner moonlight; don't hide the madness."
-         -Allen Ginsberg */
-	    }
-      //
-      //
-      // Q: How many ELSE-IF's are necessary? 
-      // Q: What are the cases you must consider?
-      //
-      //      
-	    //if ________...
-	    else {
-      /* "Follow your inner moonlight; don't hide the madness."
-         -Allen Ginsberg */
-	    }
+      //if ________...
+      if ( ! hasNext()  ) {
+        _okToRemove = false;
+      }
+      //if ________...
+      else if (  true ) {
+        /* "Follow your inner moonlight; don't hide the madness."
+        -Allen Ginsberg */
+      }
+      //if ________...
+      else {
+        _dummy.getPrev().setNext(_dummy.getNext());
+      }
 
       //Q: Anything else need to be done?
-      
+
     }//end remove()
     //--------------^  Iterator interface methods  ^-------------
     //-----------------------------------------------------------
   }//*************** end inner class MyIterator ***************
-  
 
-  
+
+
   //main method for testing
   public static void main( String[] args )
   {
@@ -343,8 +345,8 @@ public class LList<T> implements List<T>
     System.out.println( "...after add(4,phat): " );
     System.out.println( james + "\tsize: " + james.size() );
 
-    System.out.println( "...after remove last: " 
-                        + james.remove( james._size-1) );
+    System.out.println( "...after remove last: "
+    + james.remove( james._size-1) );
     System.out.println( james + "\tsize: " + james.size() );
 
     System.out.println( "...after remove(0): " + james.remove(0) );
@@ -358,5 +360,3 @@ public class LList<T> implements List<T>
   }//end main()
 
 }//end class LList
-
-
