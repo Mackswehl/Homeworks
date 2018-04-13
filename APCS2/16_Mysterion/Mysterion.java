@@ -1,13 +1,10 @@
-/*
-Larry Wong
-APCS2 pd8
-HW16 -- About Face
-2018-03-07
-*/
+// Maxwell Vale
+// APCS2 pd02
+// HW17 -- So So Fast
+//2018-03-12M
 
+public class FastSelect {
 
-public class Mysterion{
-  
   public static int[] populate(int[]arr){
     for (int i = 0; i < arr.length; i++){
       arr[i] = (int)(Math.random() * 100);
