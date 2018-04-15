@@ -15,7 +15,7 @@
 *   5. Repeat steps 2&3 until entire expression has been evaluated
 *   6. Return the simplified value.
 *
-* STACK OF CHOICE: LLStack ____ by ____
+* STACK OF CHOICE: LLStack by Maxwell Vale
 * b/c I don't really have a specific reason for picking the LLStack
 * over the others.
 ******************************************************/
@@ -33,12 +33,13 @@ public class Scheme
   ******************************************************/
   public static String evaluate( String expr )
   {
-    LLStack<String> eval = new LLStack<String>();
-    String[] exprArr = expr.split("\\s+");
-    for (int i = exprArr.length - 1; i >= 0; i--) {
+    LLStack<String> eval = new LLStack<String>(); // create the stack to hold Strings
+    String[] exprArr = expr.split("\\s+"); // parse the string expression
+    for (int i = exprArr.length - 1; i >= 0; i--) { // iterate throught the expression from the back
+      /* Once the iterator makes it to an open paren, you begin to evaluate until the next closing paren.*/
       if (exprArr[i].equals("(")) {
 
-        String op = eval.pop();
+        String op = eval.pop(); // determining which operation is used
         if (op.equals("+")) {
           eval.push(unload(1,eval));
         }
@@ -50,11 +51,11 @@ public class Scheme
         }
 
       }
-      else {
+      else { // otherwise, the string can be pushed to the stack
         eval.push(exprArr[i]);
       }
     }
-    return eval.pop();
+    return eval.pop(); // after evaluating the whole string, the simplified value should be the only thing left in the stack
   }//end evaluate()
 
 
