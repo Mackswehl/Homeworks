@@ -16,7 +16,7 @@ public class DLList implements List //your List interface must be in same dir
   private int _size;
 
   // constructor -- initializes instance vars
-  public LList( )
+  public DLList( )
   {
     _head = null; //at birth, a list has no elements
     _tail = null;
@@ -31,7 +31,7 @@ public class DLList implements List //your List interface must be in same dir
     DLLNode tmp = new DLLNode( null, newVal, _head );
     _head = tmp;
     _size++;
-    if (size == 1) { _tail = tmp}
+    if (size == 1) { _tail = tmp; }
     return true;
   }
 
@@ -141,7 +141,7 @@ public class DLList implements List //your List interface must be in same dir
   //main method for testing
   public static void main( String[] args )
   {
-    LList james = new LList();
+    DLList james = new DLList();
 
     System.out.println( james );
     System.out.println( "size: " + james.size() );
