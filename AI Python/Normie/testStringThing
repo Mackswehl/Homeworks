@@ -1,0 +1,5 @@
+string = "bozo"
+for pos in range(len(string)):
+    for letter in "abcdefghijklmnopqrstuvwxyz":
+        if letter != string[pos]:
+            print (string[:pos] + letter + string[pos+1:])
