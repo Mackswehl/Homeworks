@@ -24,6 +24,7 @@ for word in sameLenWords:
 
     dict[word] = NBD
 
+# Node class holds the current word, the path to that word, and the predicted cost of using that word (AValue)
 class Node():
 
     def __init__(self,AValue,word,pathTo):
@@ -31,24 +32,30 @@ class Node():
         self.word = word
         self.pathTo = pathTo
 
+    # Since tuples are used to push into the heap, Node should have a method that returns data in a tuple
     def toTuple(self):
         return (self.AValue,self.word,self.pathTo)
 
+# ASearch class contains the methods needed to execute A*Search properly
 class ASearch():
 
     def __init__(self,first,last):
-        self.ux = set()
-        self.fr = []
-        self.x = set()
-        self.firstWord = first
-        self.lastWord = last
+        self.ux = set() # Unexplored words (a set)
+        self.fr = [] # Words on the frontier of exploration (a heap)
+        self.x = set() # Explored words (a set)
+        self.firstWord = first # Beginning of word ladder
+        self.lastWord = last # End of word ladder
+        # Initialize with the first word of the word ladder push into the frontier
         firstNode = Node(self.estimate(self.firstWord),self.firstWord,[])
         heapq.heappush(self.fr,firstNode.toTuple())
 
+    # Will fill set Ux with all of the words of the same length as the first
     def populateUx(self):
         for word in sameLenWords:
             self.ux.add(word)
 
+    # Estimate of how many steps away curWord is from the target word
+    # Just compares the letters at each position of the words
     def estimate(self,curWord):
         guess = 0
         for pos in range(len(self.firstWord)):
@@ -56,6 +63,8 @@ class ASearch():
                 guess += 1
         return guess
 
+    # Pops the best Tuple off of the heap
+    # Adds available neighbors of the word to the frontier with updated cost and pathTo
     def popBest(self):
         bestPath = heapq.heappop(self.fr)
         self.x.add(bestPath[1])
@@ -78,7 +87,7 @@ for input in inputWords:
     search = ASearch(pair[0],pair[1])
     search.populateUx()
     while pair[1] not in search.x:
-        if len(search.fr) == 0:
+        if len(search.fr) == 0: # Means that all possible paths were searched already -> No path exists
             shortestPath = list(pair)
             break
         target = search.popBest()
