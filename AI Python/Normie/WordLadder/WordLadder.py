@@ -81,9 +81,9 @@ for input in inputWords:
         if len(search.fr) == 0:
             shortestPath = list(pair)
             break
-        shortest = search.popBest()
-        shortestPath = list(shortest[2])
-        shortestPath.append(shortest[1])
+        target = search.popBest()
+        shortestPath = list(target[2])
+        shortestPath.append(target[1])
 
     output.write(','.join(shortestPath))
     output.write('\n')
