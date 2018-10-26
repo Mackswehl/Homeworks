@@ -1,0 +1,6 @@
+head,tail
+hate,love
+read,head
+hazy,frog
+head,ache
+abbe,tied
