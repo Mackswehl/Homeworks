@@ -3,4 +3,7 @@ hate,love
 read,head
 hazy,frog
 head,ache
-abbe,tied
+wood,race
+abbe,wrap
+abbe,woke
+good,rude

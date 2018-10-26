@@ -1,6 +1,7 @@
 #! /usr/bin/python3
 
-import sys, heapq
+import sys
+import heapq
 
 wordList = open("dictall.txt", "r").read().split("\n")
 
@@ -66,17 +67,25 @@ class ASearch():
     # Pops the best Tuple off of the heap
     # Adds available neighbors of the word to the frontier with updated cost and pathTo
     def popBest(self):
+        # Best path is popped off of the heap and added to the explored set
         bestPath = heapq.heappop(self.fr)
         self.x.add(bestPath[1])
 
+        # Create a copy of the pathTo that word
+        # Adds the curWord to the path (for its neighbors)
         newPath = list(bestPath[2])
         newPath.append(bestPath[1])
 
+        # Acquires the neighborList of the word popped off of the heap
         neighborList = dict[bestPath[1]]
+        # If the neighbor hasn't been added to explored yet, then create a new node for that neighbor
         for neighbor in neighborList:
+            # If this is the first time the neighbor is being added to frontier, then remove from unexplored
             if neighbor not in self.x:
                 if neighbor in self.ux:
                     self.ux.remove(neighbor)
+
+                # Need to take away the estimate (heuristic) from the previous node, incremented by 1, and add the estimate of the neighbor
                 newNode = Node(bestPath[0] - self.estimate(bestPath[1]) + 1 + self.estimate(neighbor), neighbor, newPath)
                 heapq.heappush(self.fr,newNode.toTuple())
         return bestPath

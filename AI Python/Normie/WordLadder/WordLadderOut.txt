@@ -3,4 +3,7 @@ hate,have,hove,love
 read,head
 hazy,haze,hare,bare,bars,baas,bras,brag,brig,frig,frog
 head,ache
-abbe,able,ably,ally,alls,ails,aids,lids,lies,lied,tied
+wood,rood,rook,rock,rack,race
+abbe,able,ably,ally,alls,ails,aids,bids,bias,bras,brag,crag,crap,wrap
+abbe,able,ably,ally,alls,ails,aids,aide,hide,hike,hoke,woke
+good,goos,gods,rods,rode,rude
