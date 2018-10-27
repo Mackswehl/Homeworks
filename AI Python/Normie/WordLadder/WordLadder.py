@@ -3,6 +3,9 @@
 import sys
 import heapq
 
+push = heapq.heappush
+pop = heapq.heappop
+
 wordList = open("dictall.txt", "r").read().split("\n")
 
 inputWords = open(sys.argv[1], 'r').read().strip().split('\n')
@@ -48,7 +51,7 @@ class ASearch():
         self.lastWord = last # End of word ladder
         # Initialize with the first word of the word ladder push into the frontier
         firstNode = Node(self.estimate(self.firstWord),self.firstWord,[])
-        heapq.heappush(self.fr,firstNode.toTuple())
+        push(self.fr,firstNode.toTuple())
 
     # Will fill set Ux with all of the words of the same length as the first
     def populateUx(self):
@@ -68,7 +71,7 @@ class ASearch():
     # Adds available neighbors of the word to the frontier with updated cost and pathTo
     def popBest(self):
         # Best path is popped off of the heap and added to the explored set
-        bestPath = heapq.heappop(self.fr)
+        bestPath = pop(self.fr)
         self.x.add(bestPath[1])
 
         # Create a copy of the pathTo that word
@@ -87,7 +90,7 @@ class ASearch():
 
                 # Need to take away the estimate (heuristic) from the previous node, incremented by 1, and add the estimate of the neighbor
                 newNode = Node(bestPath[0] - self.estimate(bestPath[1]) + 1 + self.estimate(neighbor), neighbor, newPath)
-                heapq.heappush(self.fr,newNode.toTuple())
+                push(self.fr,newNode.toTuple())
         return bestPath
 
 for input in inputWords:
