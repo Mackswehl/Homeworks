@@ -70,8 +70,10 @@ class ASearch():
     # Pops the best Tuple off of the heap
     # Adds available neighbors of the word to the frontier with updated cost and pathTo
     def popBest(self):
-        # Best path is popped off of the heap and added to the explored set
+        # Best path is popped off of the heap and word is added to the explored set
         bestPath = pop(self.fr)
+        # bestPath example: ( 7, "word", ["carp,"corp","corn","worn"])
+        # indices: ( bestPath[0], bestPath[1], bestPath[2])
         self.x.add(bestPath[1])
 
         # Create a copy of the pathTo that word
