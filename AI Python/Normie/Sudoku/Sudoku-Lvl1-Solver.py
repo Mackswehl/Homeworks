@@ -12,6 +12,8 @@ boardName = sys.argv[3]
 # AKA to see how bad the naive solver method is
 backTrackerer = 0
 
+# Stack to keep track of the latest verion of the current sudoku puzzle
+# Allows for backtracking in case a guess was incorrect (just pop the most recent version and revert to the previous one)
 stack = []
 
 # List of "cliques" for every row, column, and cell
@@ -73,6 +75,7 @@ for i in range(index + 1,index + 10):
         puzzleStr += ','
 # Once all of the lines are in a string, make a list of each pos by splitting on commas
 puzzleList = puzzleStr.split(',')
+# Add the original version of the puzzle to the stack
 stack.append([[],list(puzzleList)])
 
 # Function: neighborValues(pos)
@@ -97,6 +100,8 @@ def printPuzzle():
         print (puzzleList[i*9:i*9+9])
         print ('\n')
 
+# Looks for empty spaces in the puzzle in which a value can be FORCED
+# A value can be forced at an empty when 8 out of 9 of the possible numbers have been used by the empty spot's neighbors (row, column, cell)
 def forceSearch():
     global puzzleList
 
@@ -104,21 +109,26 @@ def forceSearch():
     while index < 81:
         if puzzleList[index] == '_':
             neighVal = neighborValues(index)
-            if len(neighVal) == 8:
+            if len(neighVal) == 8: # 8 out of 9 numbers were used by neighbors
                 for i in range(1,10):
                     stri = str(i)
-                    if stri not in neighVal:
+                    if stri not in neighVal: # Find the number that wasn't used by neighbors
                         puzzleList[index] = stri
                         break
+                # Restart the search for forces because one force might lead other spaces to force into a single number
                 index = 0
             else:
                 index += 1
         else:
             index += 1
 
+# Finds the index of the next best place to guess
+# In this solver, "Next Best" guess would be the empty with the least possibilities for numbers in that position
+# To find that, nextGuessIndex() looks for empty spaces with the longest neighVal list
+# Longer neighVal list signifies more numbers used by neighbors, thus leaving less possibilities for the empty space
 def nextGuessIndex():
-    nextGuessIndex = 0
-    neighborLen = 0
+    nextGuessIndex = 0 # Keep track of index of where next guess should happen
+    neighborLen = 0 # Keep track of len of neighbor list to compare to other empty indices
     i = 0
     while i < 81:
         if puzzleList[i] == '_':
@@ -131,24 +141,25 @@ def nextGuessIndex():
     #print (neighborValues(nextGuessIndex))
     return nextGuessIndex
 
+# Make a guess at guessIndex retrieved from nextGuessIndex()
 def makeGuess(guessIndex):
     global puzzleList
     global backTrackerer
     global stack
 
     neighVals = neighborValues(guessIndex)
-    if len(neighVals) + len(stack[len(stack) - 1][0]) < 9:
+    if len(neighVals) + len(stack[len(stack) - 1][0]) < 9: # There are still numbers that can be guessed
         for i in range(1,10):
             stri = str(i)
-            if stri not in neighVals and stri not in stack[len(stack) - 1][0]:
-                stack[len(stack) - 1][0].append(stri)
-                puzzleList[guessIndex] = stri
-                stack.append([[],list(puzzleList)])
+            if stri not in neighVals and stri not in stack[len(stack) - 1][0]: # If number hasn't been used by a neighbor and hasn't been guessed yet
+                stack[len(stack) - 1][0].append(stri) # Update guesses at that state
+                puzzleList[guessIndex] = stri # Fill in the empty with the guessed numnber
+                stack.append([[],list(puzzleList)]) # Add new state to the top of the stack
                 break
-    else:
-        stack.pop()
-        backTrackerer += 1
-        puzzleList = stack[len(stack) - 1][1]
+    else: # This means a contradiction was reached -> Neighbors use all 9 numbers or all possible numbers were guessed and failed
+        stack.pop() # Pop the latest state off the top of the stack
+        backTrackerer += 1 # Increment the backtrack counter
+        puzzleList = stack[len(stack) - 1][1] # Set puzzleList to the state now at the top of the stack 
         #print ("\n\n\n\n\n\n BACKTRACK \n\n\n\n\n\n")
 
     #print (stack)
