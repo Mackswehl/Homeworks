@@ -43,8 +43,7 @@ Cliques = [
 [33,34,35,42,43,44,51,52,53],
 [54,55,56,63,64,65,72,73,74],
 [57,58,59,66,67,68,75,76,77],
-[60,61,62,69,70,71,78,79,80]
-]
+[60,61,62,69,70,71,78,79,80]]
 
 # Creating a dictionary of the "neighbors" of each position in the board
 neighborDict = {}
@@ -73,38 +72,20 @@ for i in range(index + 1,index + 10):
 # Once all of the lines are in a string, make a list of each pos by splitting on commas
 puzzleList = puzzleStr.split(',')
 
-# puzzleState: Class that is meant to help with the guessing part of the naive method
-# Before a guess at a certain position, puzzleState stores the previous guesses and the state of the board before guessing
-# This allows to check what has already been guessed at a certain position
-# This also makes it possible to restore the state of the board (backtrack) if necessary
-class puzzleState():
-
-    def __init__(self,state):
-        # Numbers already guessed
-        self.subbed = []
-        # State of the board before guessing
-        self.state = state
-
-    def toList(self):
-        # Storing both in a list to be put into the stack
-        return [self.subbed,self.state]
-
 # Function: neighborValues(pos,state)
 # Parameters:
 #   pos - Position on the sudoku board
 #   state - state of the board currently being used
 # Returns the values (from 1 to 9) already used by the neighbors of pos at certain state
 # Returns as a set to remove duplicates and speed up time to check for presence of value
-def neighborValues(pos,state):
+def neighborValues(pos):
     valueList = []
     positions = neighborDict[pos]
     for neighbor in positions:
-        valueList.append(state[neighbor])
+        valueList.append(puzzleList[neighbor])
     valueSet = set(valueList)
-    # Remove the '_' because it's not a numerical value of one of the neighbors
-    # Only represents an empty space
     if '_' in valueSet:
-        valueSet.remove('_')
+        valueSet.remove('_')     # Remove the '_' because it's not a numerical value of one of the neighbors
     return valueSet
 
 # Prints the puzzleList as a 9x9 box for visualization purposes
@@ -118,7 +99,7 @@ def printPuzzle():
 def naiveSolver():
     stack = []
     # Add the original state to the stack
-    stack.append(puzzleState(puzzleList).toList())
+    stack.append([[],puzzleList])
 
     # Function: guess(index)
     # Parameters:
@@ -129,29 +110,31 @@ def naiveSolver():
         global backTrackerer
 
         # Get the values of the neighbors at index
-        neighVal = neighborValues(index,puzzleList)
+        neighVal = neighborValues(index)
         newState = list(puzzleList)
 
         # FORCED STATE
         # If 8 out of 9 values were used, then the the value at index is FORCED to be the remaining number
         if len(neighVal) == 8:
+            # newState[index] = 45 - sum(neighVal)
             for i in range(1,10):
-                if str(i) not in neighVal:
-                    newState[index] = str(i)
+                stri = str(i)
+                if stri not in neighVal:
+                    newState[index] = stri
                     puzzleList = newState # Update the current puzzle state
-                    #printPuzzle()
                     break
 
         # GUESSING STATE
         # If the neighbors have used less than 8 values and the remaining values haven't been guessed yet, then another guess needs to be made
         elif len(stack[len(stack) - 1][0]) + len(neighVal) != 9:
             for i in range(1,10):
+                stri = str(i)
                 # Find the value that is not used by the neighbors and has not been guessed yet
-                if str(i) not in neighVal and str(i) not in stack[len(stack) - 1][0]:
-                    stack[len(stack) - 1][0].append(str(i))
-                    newState[index] = str(i)
+                if stri not in neighVal and stri not in stack[len(stack) - 1][0]:
+                    stack[len(stack) - 1][0].append(stri)
+                    newState[index] = stri
                     puzzleList = newState # Update the current state
-                    stack.append(puzzleState(newState).toList()) # Add the new guess to the top of the stack
+                    stack.append([[],puzzleList]) # Add the new guess to the top of the stack
                     #printPuzzle()
                     break
 
