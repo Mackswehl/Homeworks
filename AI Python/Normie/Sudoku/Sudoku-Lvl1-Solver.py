@@ -159,7 +159,7 @@ def makeGuess(guessIndex):
     else: # This means a contradiction was reached -> Neighbors use all 9 numbers or all possible numbers were guessed and failed
         stack.pop() # Pop the latest state off the top of the stack
         backTrackerer += 1 # Increment the backtrack counter
-        puzzleList = stack[len(stack) - 1][1] # Set puzzleList to the state now at the top of the stack 
+        puzzleList = stack[len(stack) - 1][1] # Set puzzleList to the state now at the top of the stack
         #print ("\n\n\n\n\n\n BACKTRACK \n\n\n\n\n\n")
 
     #print (stack)
