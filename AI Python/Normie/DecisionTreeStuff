@@ -1,0 +1,9 @@
+import math
+
+def S(E):
+    return sum (
+        [ p * math.log(p,2)
+         for p in E
+         if p > 0])
+
+print (S([9,5]))

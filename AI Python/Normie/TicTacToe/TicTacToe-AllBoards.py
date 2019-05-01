@@ -26,9 +26,6 @@ boardConfigs = set()
 # Value - Corresponding boardNode
 AllBoards = {}
 
-# State of the board
-curBoard = "_________"
-
 # Stack to contain the last state of the board and the moves already explored
 stack = []
 stack.append([[],curBoard])
@@ -72,9 +69,7 @@ def gameOver(board):
     return False
 
 def makeNextMove():
-    global curBoard
     global numOfGames
-    global boardConfigs
     global boardConfigs
     global numOfDraws
     global numOfXWins
@@ -115,19 +110,6 @@ def makeNextMove():
     # print (stack)
     # print ('\n')
 
-def generateGames():
-
-    while len(stack) != 0:
-        makeNextMove()
-
-    # print(numOfGames)
-    # print (len(boardConfigs))
-    # print (numOfDraws)
-    # print (numOfXWins)
-    # print (numOfOWins)
-    # print (boardConfigs)
-    # print ("_x_ox__o_" in boardConfigs)
-
 class BoardNode:
     def __init__(self,layout):
         self.layout = layout
@@ -142,7 +124,12 @@ class BoardNode:
 
 def CreateAllBoards(layout,parent):
     # recursive function to manufacture all BoardNode nodes and place them into the AllBoards dictionary
+    if layout not in AllBoards:
+        AllBoards[layout] = newNode(layout)
+    if parent not in AllBoards[layout].parents:
+        AllBoards[layout].parents.append(parent)
 
-
-
-#generateGames()
+    if curBoard.count('_') % 2 == 0:
+        nextMove = 'o'
+    else:
+        nextMove = 'x'
