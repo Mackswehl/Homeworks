@@ -176,6 +176,8 @@ def lvl1Solver():
         #printPuzzle()
         ngi = nextGuessIndex()
         makeGuess(ngi)
+        printPuzzle()
+        print('\n\n')
     print backTrackerer
 
     nameList = boardName.split(',')
